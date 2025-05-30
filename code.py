@@ -398,6 +398,14 @@ def forum():
     messages = list(forum_col.find())
     return render_template('forum.html', forum_messages=messages)
 
+@app.route('/forum/delete/<msg_id>', methods=['POST'])
+@admin_required
+def delete_message(msg_id):
+    forum_col.delete_one({'_id': ObjectId(msg_id)})
+    flash("Message deleted successfully.")
+    return redirect(url_for('admin_dashboard'))
+
+
 @app.route('/forum/upvote/<msg_id>', methods=['POST'])
 def upvote_message(msg_id):
     forum_col.update_one({'_id': ObjectId(msg_id)}, {'$inc': {'upvotes': 1}})
