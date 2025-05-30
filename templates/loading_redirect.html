@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Just a moment...</title>
+    <meta http-equiv="refresh" content="5;url={{ url_for('wrangler') }}">
+    <style>
+        body {
+            background-color: #fafafa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .loader-container {
+            text-align: center;
+        }
+        .loader {
+            border: 8px solid #e0e0e0;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .message {
+            font-size: 1.3rem;
+            color: #333;
+        }
+        .fallback {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #888;
+        }
+        .fallback a {
+            color: #3498db;
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        setTimeout(function() {
+            window.location.href = "{{ url_for('wrangler') }}";
+        }, 5000);
+    </script>
+</head>
+<body>
+    <div class="loader-container">
+        <div class="message">Preparing your experience...</div>
+        <div class="loader"></div>
+        <div class="fallback">
+            Not redirected? <a href="{{ url_for('wrangler') }}">Click here</a>
+        </div>
+    </div>
+</body>
+</html>

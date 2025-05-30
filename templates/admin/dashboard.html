@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+
+<h2>Blog Posts</h2>
+<p>
+  <a href="{{ url_for('upload_posts') }}" class="btn btn-outline-secondary btn-sm">Upload Posts (CSV)</a>
+  <a href="{{ url_for('new_post') }}" class="btn btn-primary btn-sm">+ New Blog Post</a>
+</p>
+<ul>
+  {% for post in posts %}
+    <li>{{ post.title }} <a href="{{ url_for('edit_post', post_id=post._id) }}">Edit</a></li>
+  {% endfor %}
+</ul>
+
+<h2>Destinations</h2>
+<p>
+  <a href="{{ url_for('upload_destinations') }}" class="btn btn-outline-secondary btn-sm">Upload Destinations (CSV)</a>
+  <a href="{{ url_for('new_destination') }}" class="btn btn-primary btn-sm">+ New Destination</a>
+</p>
+<ul>
+  {% for d in destinations %}
+    <li>{{ d.name }} <a href="{{ url_for('edit_destination', dest_id=d._id) }}">Edit</a></li>
+  {% endfor %}
+</ul>
+
+<h2>Forum Messages</h2>
+<ul>
+  {% for m in messages %}
+    <li>
+      {{ m.username }}: {{ m.message[:50] }}
+      <form action="{{ url_for('delete_message', msg_id=m._id) }}" method="POST" style="display:inline;">
+        <button class="btn btn-sm btn-danger">Delete</button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

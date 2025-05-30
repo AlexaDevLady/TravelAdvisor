@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}New Destination{% endblock %}
+{% block content %}
+<h2>Create New Destination</h2>
+
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label>Name</label>
+    <input type="text" name="name" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Description</label>
+    <textarea name="description" class="form-control" rows="5" required></textarea>
+  </div>
+  <div class="mb-3">
+    <label>Latitude</label>
+    <input type="number" step="any" name="lat" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Longitude</label>
+    <input type="number" step="any" name="lon" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Upload Image</label>
+    <input type="file" name="image" class="form-control" accept="image/*" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Destination</button>
+</form>
+
+<!-- Optional: Add drag-and-drop JS -->
+<script>
+  const fileInput = document.querySelector('input[type="file"]');
+  const form = document.querySelector('form');
+
+  form.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    form.classList.add('dragover');
+  });
+
+  form.addEventListener('dragleave', () => form.classList.remove('dragover'));
+
+  form.addEventListener('drop', (e) => {
+    e.preventDefault();
+    form.classList.remove('dragover');
+    fileInput.files = e.dataTransfer.files;
+  });
+</script>
+{% endblock %}

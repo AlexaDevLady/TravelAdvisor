@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Edit Post{% endblock %}
+
+{% block content %}
+<h2>Edit Blog Post</h2>
+
+<form method="POST">
+  <div class="mb-3">
+    <label>Title</label>
+    <input type="text" name="title" class="form-control" value="{{ post.title if post else '' }}" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Category</label>
+    <input type="text" name="category" class="form-control" value="{{ post.category if post else '' }}" required>
+  </div>
+
+  <div class="mb-3">
+    <label>Content (Markdown)</label>
+    <textarea name="content" id="markdown-input" class="form-control" rows="10" required>{{ post.content if post else '' }}</textarea>
+  </div>
+
+  <button type="button" class="btn btn-secondary" onclick="previewMarkdown()">Preview</button>
+  <button type="submit" class="btn btn-primary">Save</button>
+
+  <div id="preview" class="mt-4 p-3 bg-light border rounded" style="min-height: 200px;"></div>
+</form>
+
+<!-- Include the markdown preview renderer -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  function previewMarkdown() {
+    const input = document.getElementById('markdown-input').value;
+    document.getElementById('preview').innerHTML = marked.parse(input);
+  }
+</script>
+{% endblock %}

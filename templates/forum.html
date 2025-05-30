@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Forum{% endblock %}
+{% block content %}
+<h1>Community Forum</h1>
+<form method="POST" novalidate>
+  <div class="mb-3">
+    <label for="username" class="form-label">Your Name</label>
+    <input type="text" class="form-control" id="username" name="username" required>
+  </div>
+  <div class="mb-3">
+    <label for="message" class="form-label">Message</label>
+    <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Post Message</button>
+</form>
+<hr>
+<h3>Messages</h3>
+{% if forum_messages %}
+  <ul class="list-group">
+    {% for msg in forum_messages|reverse %}
+      <li class="list-group-item">
+        <strong>{{ msg.username }}</strong> says:<br/>
+        {{ msg.message }}
+        <div class="mt-2">
+          <form method="POST" action="{{ url_for('upvote_message', msg_id=msg._id) }}" style="display:inline;">
+            <button type="submit" class="btn btn-sm btn-outline-primary">👍 {{ msg.upvotes }}</button>
+          </form>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No messages yet. Be the first to post!</p>
+{% endif %}
+{% endblock %}

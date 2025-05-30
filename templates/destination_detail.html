@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ destination.name }}{% endblock %}
+{% block content %}
+<h1>{{ destination.name }}</h1>
+<img src="{{ destination.image }}" alt="{{ destination.name }}" onerror="this.onerror=null;this.src='/static/images/paris.jpg';">
+<p>{{ destination.description }}</p>
+<a href="{{ url_for('destination_weather', dest_id=destination._id) }}" class="btn btn-info mt-3">View Weather</a>
+<h3>Location Map</h3>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<div id="map" style="height: 400px; border-radius: 10px;"></div>
+<script>
+  var map = L.map('map').setView([{{ destination.lat }}, {{ destination.lon }}], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+  L.marker([{{ destination.lat }}, {{ destination.lon }}]).addTo(map).bindPopup("{{ destination.name }}").openPopup();
+</script>
+{% endblock %}

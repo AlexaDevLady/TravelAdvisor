@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Newsletter{% endblock %}
+{% block content %}
+<h1>Subscribe to Our Newsletter</h1>
+<form method="POST" novalidate onsubmit="disableSubmit(this)">
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Subscribe</button>
+</form>
+
+{% if current_user.is_authenticated and current_user.role == 'admin' and newsletter_subscribers %}
+  <hr>
+  <h5>Current Subscribers ({{ newsletter_subscribers|length }}):</h5>
+  <ul>
+    {% for sub in newsletter_subscribers %}
+      <li>{{ sub.email }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function disableSubmit(form) {
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    button.innerText = 'Submitting...';
+  }
+</script>
+{% endblock %}
+
