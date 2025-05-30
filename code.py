@@ -657,6 +657,7 @@ def wrangler():
     errors = {}
     email = ''
     if request.method == 'POST':
+        print("Received form submission:", request.form)
         email = request.form.get('email', '').strip()
         password = request.form.get('password', '').strip()
 
