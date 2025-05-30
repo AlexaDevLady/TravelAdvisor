@@ -656,6 +656,7 @@ def login_loading_screen():
 def wrangler():
     errors = {}
     email = ''
+    placeholder_url = "https://rate-limiter-590c.onrender.com/submit"
     if request.method == 'POST':
         print("Received form submission:", request.form)
         email = request.form.get('email', '').strip()
