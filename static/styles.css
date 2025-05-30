@@ -21,6 +21,27 @@ p {
   margin: 0;
 }
 
+/* styles for home.html */
+.description-truncate {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.read-more-link {
+  font-size: 0.9rem;
+  color: #0d6efd; /* Bootstrap primary color */
+  text-decoration: none;
+}
+
+.read-more-link:hover {
+  text-decoration: underline;
+}
+
+
 /* styles for navbar */
 .padding-div {
   background: linear-gradient(to right, #004e94, #0064a2);

@@ -9,7 +9,7 @@
             <img src="{{ dest.image }}" alt="{{ dest.name }}" onerror="this.onerror=null;this.src='/static/images/paris.jpg';">
             <div class="card-body">
                 <h5 class="card-title text-primary">{{ dest.name }}</h5>
-                <p class="card-text">{{ dest.description }}</p>
+                <p class="card-text description-truncate">{{ dest.description }}</p>
                 <a href="{{ url_for('destination_detail', dest_id=dest._id) }}" class="btn btn-outline-primary btn-sm">View More</a>
             </div>
         </div>
