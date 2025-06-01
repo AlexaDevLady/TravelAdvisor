@@ -18,7 +18,7 @@
     {% for post in blog_posts %}
     <a href="{{ url_for('blog_post', post_id=post._id) }}" class="list-group-item list-group-item-action">
         <h5 class="mb-1">{{ post.title }}</h5>
-        <p class="mb-1">{{ post.content[:100] }}{% if post.content|length > 100 %}...{% endif %}</p>
+        <div class="mb-1">{{ post.snippet | safe }}</div>
         <small class="text-muted">{{ post.category }}</small>
     </a>
     {% endfor %}

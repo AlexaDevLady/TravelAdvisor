@@ -2,7 +2,12 @@
 {% block title %}{{ destination.name }}{% endblock %}
 {% block content %}
 <h1>{{ destination.name }}</h1>
-<img src="{{ destination.image }}" alt="{{ destination.name }}" onerror="this.onerror=null;this.src='/static/images/paris.jpg';">
+<img src="{{ destination.image }}" 
+     alt="{{ destination.name }}" 
+     class="img-fluid rounded shadow-sm mb-3"
+     style="max-height: 400px; object-fit: cover;"
+     onerror="this.onerror=null;this.src='/static/images/paris.jpg';">
+
 <p>{{ destination.description }}</p>
 <a href="{{ url_for('destination_weather', dest_id=destination._id) }}" class="btn btn-info mt-3">View Weather</a>
 <h3>Location Map</h3>

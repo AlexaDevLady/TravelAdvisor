@@ -345,7 +345,9 @@ def blog():
 
     # ✅ Convert markdown to HTML for blog list
     for post in posts:
-        post['content'] = markdown.markdown(post['content'])
+        raw_content = post['content']
+        snippet = raw_content[:300]  # Raw markdown snippet
+        post['snippet'] = markdown.markdown(snippet)
 
     categories = blog_posts_col.distinct('category')
 
@@ -660,7 +662,6 @@ def wrangler():
     placeholder_url = "https://rate-limiter-590c.onrender.com/submit"
 
     if request.method == 'POST':
-        print("Received form submission:", request.form)
         email = request.form.get('email', '').strip()
         password = request.form.get('password', '').strip()
 
@@ -679,8 +680,6 @@ def wrangler():
                     headers=headers,
                     timeout=5
                 )
-                print("Response status:", response.status_code)
-                print("Response body:", response.text)
                 response.raise_for_status()
             except requests.RequestException as e:
                 print("Request to placeholder failed:", e)
